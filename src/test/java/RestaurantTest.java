@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +17,8 @@ class RestaurantTest {
         LocalTime openingTime = LocalTime.parse("09:00:00");
         LocalTime closingTime = LocalTime.parse("22:00:00");
         restaurant = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
 
     }
     //REFACTOR ALL THE REPEATED LINES OF CODE
@@ -85,18 +89,25 @@ class RestaurantTest {
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //<<<<<<<<<<<<<<<<<<<<<<<GET Total>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
     public void not_adding_anything_should_return_zero(){
-        assertEquals(0, restaurant.getTotalCost());
+        List<String> itemNames = Arrays.asList();
+
+        assertEquals(0, restaurant.getTotalCost(itemNames));
     }
+    @Test
     public void adding_anything_should_return_anything_but_zero_here_adding_119(){
         restaurant.addToMenu("Sweet corn soup",119);
-        assertEquals(119, restaurant.getTotalCost());
+        List<String> itemNames = Arrays.asList("Sweet corn soup");
+
+        assertEquals(119, restaurant.getTotalCost(itemNames));
     }
 
+    @Test
     public void get_order_total_for_selected_values_of_amount_119_269_388(){
-        restaurant.addToMenu("Sweet corn soup",119);
-        restaurant.addToMenu("Vegetable lasagne", 269);
-        assertEquals(388, restaurant.getTotalCost());
+
+        List<String> itemNames = Arrays.asList("Sweet corn soup", "Vegetable lasagne");
+        assertEquals(388, restaurant.getTotalCost(itemNames));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<GET Total>>>>>>>>>>>>>>>>>>>>>>>>
 }
