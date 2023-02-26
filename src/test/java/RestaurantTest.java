@@ -15,6 +15,7 @@ class RestaurantTest {
         LocalTime openingTime = LocalTime.parse("09:00:00");
         LocalTime closingTime = LocalTime.parse("22:00:00");
         restaurant = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+
     }
     //REFACTOR ALL THE REPEATED LINES OF CODE
 
@@ -29,6 +30,7 @@ class RestaurantTest {
     @Test
     public void is_restaurant_open_should_return_true_if_time_is_between_opening_and_closing_time(){
         //WRITE UNIT TEST CASE HERE
+        System.out.println(restaurant.getMenu());
         assertTrue(get_Restaurant_open_status(LocalTime.parse("14:45:00")));
         assertTrue(get_Restaurant_open_status(LocalTime.parse("21:45:00")));
     }
@@ -81,4 +83,20 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //<<<<<<<<<<<<<<<<<<<<<<<GET Total>>>>>>>>>>>>>>>>>>>>>>>>
+    public void not_adding_anything_should_return_zero(){
+        assertEquals(0, restaurant.getTotalCost());
+    }
+    public void adding_anything_should_return_anything_but_zero_here_adding_119(){
+        restaurant.addToMenu("Sweet corn soup",119);
+        assertEquals(119, restaurant.getTotalCost());
+    }
+
+    public void get_order_total_for_selected_values_of_amount_119_269_388(){
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        assertEquals(388, restaurant.getTotalCost());
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<GET Total>>>>>>>>>>>>>>>>>>>>>>>>
 }
